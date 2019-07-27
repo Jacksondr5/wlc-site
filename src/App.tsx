@@ -1,26 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { ThemeProvider } from '@material-ui/styles';
+import NewChallengeForm from './components/NewChallengeForm';
+import ResponsiveDrawer from './components/ResponsiveDrawer';
+import { CssBaseline, Container, createMuiTheme } from '@material-ui/core';
 
 const App: React.FC = () => {
+  const theme = createMuiTheme({
+    spacing: 2
+  });
+  // const isiOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  //TODO: Consider using a maxWidth on the container to simplify development
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container>
+        <ResponsiveDrawer>
+          <NewChallengeForm />
+        </ResponsiveDrawer>
+      </Container>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
