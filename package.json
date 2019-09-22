@@ -31,7 +31,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "generateSchemaTypes": "npx apollo client:codegen --target typescript --outputFlat ./src/generated"
+    "generateSchemaTypes": "npx apollo client:codegen --target typescript --outputFlat ./src/generated/schemaTypes.ts"
   },
   "eslintConfig": {
     "extends": "react-app"
