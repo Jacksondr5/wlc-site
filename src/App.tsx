@@ -5,7 +5,7 @@ import NewChallengeForm from './components/NewChallengeForm';
 import ResponsiveDrawer from './components/ResponsiveDrawer';
 import { CssBaseline, Container, createMuiTheme } from '@material-ui/core';
 import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from '@apollo/react-hooks';
 
 const App: React.FC = () => {
   const theme = createMuiTheme({
