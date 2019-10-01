@@ -21,6 +21,7 @@ steps:
     organization: 'jacksondr5'
     scannerMode: 'CLI'
     configMode: 'file'
+    configFile: ".sonarcloud.properties"
 
 - script: npm run build
   displayName: 'Build Project'
