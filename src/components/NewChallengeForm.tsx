@@ -14,7 +14,11 @@ import moment, { Moment } from "moment";
 import MomentUtils from "@date-io/moment";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
-import { NewChallenge } from "../_generated/schemaTypes";
+import {
+  NewChallenge,
+  CreateChallengeVariables,
+  CreateChallenge
+} from "../_generated/schemaTypes";
 
 interface State {
   name: string;
@@ -39,7 +43,10 @@ export default function NewChallengeForm() {
   const [endDate, setEndDate] = React.useState<Moment>(
     moment().add(4, "weeks")
   );
-  const [createChallenge] = useMutation(CREATE_CHALLENGE);
+  const [createChallenge] = useMutation<
+    CreateChallenge,
+    CreateChallengeVariables
+  >(CREATE_CHALLENGE);
   return (
     <form
       noValidate
