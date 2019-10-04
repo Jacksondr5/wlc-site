@@ -1,8 +1,8 @@
-import React from 'react';
-import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
-import { homePageQuery_authenticatedUser } from '../generated/schemaTypes';
-import { Card, CardHeader, CardContent } from '@material-ui/core';
+import React from "react";
+import gql from "graphql-tag";
+import { useQuery } from "@apollo/react-hooks";
+import { homePageQuery_authenticatedUser } from "../_generated/schemaTypes";
+import { Card, CardHeader, CardContent } from "@material-ui/core";
 
 const HOME_PAGE_QUERY = gql`
   query homePageQuery {
