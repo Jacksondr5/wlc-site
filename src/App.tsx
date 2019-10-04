@@ -20,7 +20,9 @@ const App: React.FC = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Container>
-          <ResponsiveDrawer>{/* <NewChallengeForm /> */}</ResponsiveDrawer>
+          <ResponsiveDrawer>
+            <NewChallengeForm />
+          </ResponsiveDrawer>
         </Container>
       </ThemeProvider>
     </ApolloProvider>

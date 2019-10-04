@@ -1,44 +1,62 @@
-import React from 'react';
+import React from "react";
 import {
   TextField,
   InputAdornment,
   Button,
   Grid,
   Typography
-} from '@material-ui/core';
+} from "@material-ui/core";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
-} from '@material-ui/pickers';
-import moment, { Moment } from 'moment';
-import MomentUtils from '@date-io/moment';
-import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
+} from "@material-ui/pickers";
+import moment, { Moment } from "moment";
+import MomentUtils from "@date-io/moment";
+import gql from "graphql-tag";
+import { useMutation } from "@apollo/react-hooks";
+import { NewChallenge } from "../_generated/schemaTypes";
 
 interface State {
-  name: String;
-  entryFee: Number;
+  name: string;
+  entryFee: number;
   startDate: Moment;
   endDate: Moment;
 }
 
+const CREATE_CHALLENGE = gql`
+  mutation CreateChallenge($newChallenge: NewChallenge!) {
+    createChallenge(newChallenge: $newChallenge) {
+      id
+      name
+    }
+  }
+`;
+
 export default function NewChallengeForm() {
-  const [state, setState] = React.useState<State>({
-    name: '',
-    entryFee: 0,
-    startDate: moment(),
-    endDate: moment().add(4, 'weeks')
-  });
-  const handleChange = (name: keyof State) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setState({ ...state, [name]: event.target.value });
-  };
-  const handleDatechange = (name: keyof State) => (
-    date: MaterialUiPickersDate,
-    value?: string | null | undefined
-  ) => setState({ ...state, [name]: date });
+  const [name, setName] = React.useState<string>("");
+  const [entryFee, setEntryFee] = React.useState<number>(0);
+  const [startDate, setStartDate] = React.useState<Moment>(moment());
+  const [endDate, setEndDate] = React.useState<Moment>(
+    moment().add(4, "weeks")
+  );
+  const [createChallenge] = useMutation(CREATE_CHALLENGE);
   return (
-    <form noValidate autoComplete="off">
+    <form
+      noValidate
+      autoComplete="off"
+      onSubmit={e => {
+        e.preventDefault();
+        const newChallenge: NewChallenge = {
+          name,
+          entryFee,
+          startDate: startDate.format(),
+          endDate: endDate.format()
+        };
+        createChallenge({
+          variables: { newChallenge }
+        });
+      }}
+    >
       <Grid container spacing={4}>
         <Grid item xs={12}>
           <Typography variant="h5">New Challenge</Typography>
@@ -47,8 +65,8 @@ export default function NewChallengeForm() {
           <TextField
             id="challengeName"
             label="Challenge Name"
-            value={state.name}
-            onChange={handleChange('name')}
+            value={name}
+            onChange={e => setName(e.target.value)}
             margin="normal"
             fullWidth
             variant="outlined"
@@ -58,8 +76,8 @@ export default function NewChallengeForm() {
           <TextField
             id="entry-fee"
             label="Entry Fee"
-            value={state.entryFee}
-            onChange={handleChange('entryFee')}
+            value={entryFee}
+            onChange={e => setEntryFee(parseInt(e.target.value))}
             margin="normal"
             fullWidth
             variant="outlined"
@@ -77,8 +95,8 @@ export default function NewChallengeForm() {
               id="start-date-picker"
               label="Start Date"
               fullWidth
-              value={state.startDate}
-              onChange={handleDatechange('startDate')}
+              value={startDate}
+              onChange={e => e !== null && setStartDate(e)}
             />
           </Grid>
           <Grid item xs={6}>
@@ -87,13 +105,13 @@ export default function NewChallengeForm() {
               id="end-date-picker"
               label="End Date"
               fullWidth
-              value={state.endDate}
-              onChange={handleDatechange('endDate')}
+              value={endDate}
+              onChange={e => e !== null && setEndDate(e)}
             />
           </Grid>
         </MuiPickersUtilsProvider>
-        <Button variant="contained" color="primary">
-          Submit
+        <Button variant="contained" color="primary" type="submit">
+          Create Challenge
         </Button>
       </Grid>
     </form>

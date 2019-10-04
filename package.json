@@ -7,7 +7,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "generateSchemaTypes": "npx apollo client:codegen --target typescript --outputFlat ./src/generated/schemaTypes.ts"
+    "generateSchemaTypes": "apollo client:codegen --target typescript --outputFlat ./src/_generated/schemaTypes.ts"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.1",
@@ -29,6 +29,7 @@
     "@types/node": "^12.7.8",
     "@types/react": "^16.9.4",
     "@types/react-dom": "^16.9.1",
+    "apollo": "^2.18.3",
     "husky": "^3.0.7",
     "lint-staged": "^9.4.0",
     "react-scripts": "^3.1.2",
